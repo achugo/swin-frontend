@@ -1,0 +1,41 @@
+.corporate__nav {
+  height: 100px;
+  padding-top: 1.5em;
+  background-color: $DARK-BLUE !important;
+  margin: 0 auto !important;
+
+  .nav__content {
+    margin: 0px auto !important;
+    display: flex;
+    justify-content: space-between;
+
+    .dashboard__search {
+      width: 70vw;
+    }
+  }
+
+  .navigation__links {
+    padding: 0 10vw;
+    line-height: 2.5;
+    position: relative;
+    background-color: white;
+    bottom: 0.8vh;
+    a {
+      color: #434343 !important;
+      margin-right: 20px;
+      padding: 0 15px;
+      display: inline-block;
+
+      font-family: $LIGHT-POPPING;
+      position: relative;
+      font-size: 16px;
+
+      &:hover {
+        background: transparent
+          linear-gradient(113deg, #00bbd5 0%, #35eee3 100%) 0% 0% no-repeat
+          padding-box;
+        color: white !important;
+      }
+    }
+  }
+}

@@ -38,6 +38,50 @@
   min-height: 60vh;
 }
 
+.corporate__nav {
+  height: 100px;
+  padding-top: 1.5em;
+  background-color: #182b64 !important;
+  margin: 0 auto !important;
+}
+
+.corporate__nav .nav__content {
+  margin: 0px auto !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.corporate__nav .nav__content .dashboard__search {
+  width: 70vw;
+}
+
+.corporate__nav .navigation__links {
+  padding: 0 10vw;
+  line-height: 2.5;
+  position: relative;
+  background-color: white;
+  bottom: 0.8vh;
+}
+
+.corporate__nav .navigation__links a {
+  color: #434343 !important;
+  margin-right: 20px;
+  padding: 0 15px;
+  display: inline-block;
+  font-family: "Poppins Light";
+  position: relative;
+  font-size: 16px;
+}
+
+.corporate__nav .navigation__links a:hover {
+  background: transparent linear-gradient(113deg, #00bbd5 0%, #35eee3 100%) 0% 0% no-repeat padding-box;
+  color: white !important;
+}
+
 .auth__wrapper {
   display: -webkit-box;
   display: -ms-flexbox;

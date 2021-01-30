@@ -12,6 +12,7 @@
     "multiselect-react-dropdown": "^1.6.3",
     "qrcode.react": "^1.0.0",
     "react": "^17.0.1",
+    "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-awesome-slider": "^4.1.0",
     "react-bootstrap": "^1.4.0",
     "react-chartjs": "^1.2.0",
