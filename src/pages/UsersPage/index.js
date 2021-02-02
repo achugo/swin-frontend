@@ -16,18 +16,21 @@ import {appColors} from "../../appTheme/appTheme";
 import ImageCarousel from "../../components/ImageCarousel";
 import Filter from "../../components/Filter";
 
-const dummmyData = [1, 2, 3, 4, 5,6];
+const dummmyData = [1, 2, 3, 4, 5, 6];
 const Users = () => {
     return (
         <>
             <Main>
                 <Gutter>
-                    <section style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <FlexWrap justifyContent={'flex-end'}>
                         <Button primary size={'tiny'}>
                             Add User
-                            <Icon name="plus" style={{marginLeft: '0.5rem'}}/>
+                            <Gutter display={'inline'} top={0} bottom={0} left={7}>
+                                <Icon name="plus"/>
+                            </Gutter>
+
                         </Button>
-                    </section>
+                    </FlexWrap>
                 </Gutter>
                 <section>
                     <table className="ui single line table">
@@ -43,15 +46,16 @@ const Users = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {dummmyData.map((d, index)=>(
+                        {dummmyData.map((d, index) => (
                             <tr className={'custom-tr'}>
                                 <td>{index + 1}</td>
-                                <td><Image src={Logo} style={{width: '20px', height: '20px', borderRadius: '10px', display: 'inline-block', marginRight: '0.3rem'}} />John Mbawuike</td>
+                                <td><Image src={Logo} className={'table-user-img'}/>John Mbawuike</td>
                                 <td>john.mbawuike@swagger.com</td>
                                 <td>Technical Official</td>
                                 <td>Active</td>
                                 <td>Sept 16, 2020</td>
-                                <td><Icon style={{color: appColors.LIGHTBLUE}} name={'edit outline'}/> <Icon style={{color: appColors.LIGHTBLUE}} name={'trash alternate outline'}/></td>
+                                <td><Icon color={appColors.LIGHTBLUE} name={'edit outline'}/> <Icon
+                                    color={appColors.LIGHTBLUE} name={'trash alternate outline'}/></td>
                             </tr>
                         ))}
                         </tbody>
@@ -60,18 +64,21 @@ const Users = () => {
                 <footer className={'custom-footer'}>
 
                     <CardContainer>
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <FlexWrap justifyContent={'space-between'}>
                             <div>
-                                <span style={{marginRight: '1rem', fontSize: '0.75rem'}}>Rows per page</span>
-                                <span style={{fontWeight: 'bold'}}>6</span>
+                                <Gutter top={0} bottom={0} right={14} font={0.75} display={'inline'}>Rows per
+                                    page</Gutter>
+                                <span className={'font-bold'}>6</span>
                             </div>
                             <div>
                                 <Icon name={'angle left'} size={'large'}/>
-                                <Icon name={'angle right'} size={'large'} style={{marginLeft: '2rem'}}/>
+                                <Gutter top={0} bottom={0} left={28} display={'inline'}><Icon name={'angle right'}
+                                                                                              size={'large'}/></Gutter>
+
                             </div>
-                        </div>
+                        </FlexWrap>
                     </CardContainer>
-                    <Filter/>
+                    {/*<Filter/>*/}
                 </footer>
             </Main>
         </>

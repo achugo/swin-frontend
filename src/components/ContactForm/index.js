@@ -11,7 +11,7 @@ const ContactForm = ()=>{
                 <h3>
                     Contact Details
                 </h3>
-                <div className="ui grid">
+                <div className="ui stackable grid">
                     <div className="eight wide column">
                         <section>
                             <Gutter top={0} bottom={10}>
@@ -22,7 +22,7 @@ const ContactForm = ()=>{
                         </section>
                         <section>
                             <Gutter top={20} bottom={10}>
-                                <Icon name={'address book'} style={{marginRight: '0.5rem'}}/>
+                                <Gutter right={0.5} display={'inline'} top={0} bottom={0}>  <Icon name={'address book'}/></Gutter>
                                 Phone Number
                             </Gutter>
                             <CustomDropdown/>
@@ -34,19 +34,19 @@ const ContactForm = ()=>{
                         <Gutter bottom={15}>
                             <FlexWrap>
                                 <Icon name={'circle'}/>
-                                <section style={{marginLeft: '0.5rem'}}>
+                                <Gutter bottom={0} top={0} left={0.5} >
                                     <h4 className={'clear-spacing'}>Website</h4>
                                     <a href="#" className={'clear-spacing'}>www.inc.com</a>
-                                </section>
+                                </Gutter>
                             </FlexWrap>
                         </Gutter>
                         <Gutter bottom={0} top={0}>
                             <FlexWrap>
                                 <Icon name={'mail'}/>
-                                <section style={{marginLeft: '0.5rem'}}>
+                                <Gutter bottom={0} top={0} left={0.5} >
                                     <h4 className={'clear-spacing'}>Email</h4>
                                     <a href="#" className={'clear-spacing'}>inc@gmail.com</a>
-                                </section>
+                                </Gutter>
                             </FlexWrap>
                         </Gutter>
 

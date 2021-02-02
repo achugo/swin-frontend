@@ -5,6 +5,7 @@ import {Button, Icon} from 'semantic-ui-react'
 import Main from "../../components/main/Main";
 import Description from "../../components/StyledComponents/DescriptionParagraph";
 import CustomLink from "../../components/StyledComponents/CustomLink";
+import FlexWrap from "../../components/flex/FlexWrap";
 
 const SoftwareArticleLink = () => {
     return (
@@ -23,11 +24,11 @@ const SoftwareArticleLink = () => {
                         </Description>
                     </Gutter>
                     <Gutter top={50} bottom={50}>
-                        <section style={{display: "flex", justifyContent: 'center'}}>
+                        <FlexWrap justifyContent={'center'}>
                             <CustomLink>
                                 https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_box-shadow
                             </CustomLink>
-                        </section>
+                        </FlexWrap>
 
                     </Gutter>
 

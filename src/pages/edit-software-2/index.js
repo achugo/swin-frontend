@@ -20,12 +20,14 @@ const EditSoftware2 = () => {
         <>
             <Main>
                 <Gutter>
-                    <section style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <FlexWrap justifyContent={'flex-end'}>
                         <Button primary size={'tiny'}>
                             Edit Company
-                            <Icon name="edit" style={{marginLeft: '0.5rem'}}/>
+                            <Gutter top={0} bottom={0} left={7} display={'inline'}>
+                                <Icon name="edit"/>
+                            </Gutter>
                         </Button>
-                    </section>
+                    </FlexWrap>
                 </Gutter>
                 <MainDashboardContainer>
                     <SoftwareEditHeader/>
@@ -46,13 +48,13 @@ const EditSoftware2 = () => {
                     </Gutter>
                     <Gutter>
                         <SoftwareEditButton name={'Services'} buttonName={'Add Service'} buttonIcon={'plus'} icon={false} />
-                        <div className="ui grid">
+                        <div className="ui stackable grid">
                             <div className="eight wide column">
                                 <CardContainer boxShadow={false} color={appColors.LIGHTERBLUE}>
-                                    <section style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <FlexWrap justifyContent={'space-between'}>
                                         <h3>Marketing</h3>
                                         <Icon name={'trash'}/>
-                                    </section>
+                                    </FlexWrap>
                                     <Description>
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ante leo, aliquam et
                                         felis sed, egestas posuere augue. Etiam commodo est eget est tincidunt feugiat Lorem ipsum
@@ -63,10 +65,10 @@ const EditSoftware2 = () => {
                             </div>
                             <div className="eight wide column">
                                 <CardContainer boxShadow={false} color={appColors.LIGHTERBLUE}>
-                                    <section style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <FlexWrap justifyContent={'space-between'}>
                                         <h3>Marketing</h3>
                                         <Icon name={'trash'}/>
-                                    </section>
+                                    </FlexWrap>
                                     <Description>
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ante leo, aliquam et
                                         felis sed, egestas posuere augue. Etiam commodo est eget est tincidunt feugiat Lorem ipsum

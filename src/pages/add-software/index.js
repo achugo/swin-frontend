@@ -10,6 +10,7 @@ import CustomTextArea from "../../components/CustomTextArea";
 import AddImage from "../../img-assets/add-image.jpeg";
 import AppCards from "../../components/AppsCard";
 import SoftwareOptions from "../../components/SoftwareOptions";
+import FlexWrap from "../../components/flex/FlexWrap";
 
 const AddSoftware = () => {
     return (
@@ -17,7 +18,7 @@ const AddSoftware = () => {
             <Main>
                 <MainDashboardContainer>
                     <Gutter>
-                        <section className="ui grid">
+                        <section className="ui stackable grid">
                             <div className="row">
                                 <div className="two wide column">
                                     <AddButton content={'Add Profile Image'} icon={'plus'}/>
@@ -34,7 +35,7 @@ const AddSoftware = () => {
                             </div>
                             <div className="sixteen wide column">
                                 <h3>Videos</h3>
-                                <AddButton style={{width: "100%", display: "block"}} icon={"plus"}
+                                <AddButton icon={"plus"}
                                            content={"Add Introductory Video"} height={'15rem'}/>
                             </div>
                         </section>
@@ -43,13 +44,13 @@ const AddSoftware = () => {
                         <Gutter>
                             <h3>Images</h3>
                         </Gutter>
-                        <div className="ui grid">
+                        <div className="ui stackable grid">
                             <div className="four">
                                 <AddButton height={'10rem'}/>
                             </div>
 
                             <div className="four">
-                                <img src={AddImage} alt="" style={{height: '10rem', display: 'block'}}/>
+                                <img src={AddImage} alt="" height={'140'} />
                             </div>
 
                         </div>
@@ -58,7 +59,7 @@ const AddSoftware = () => {
                         <Gutter>
                             <h3>Digital Collateral</h3>
                         </Gutter>
-                        <div className="ui grid">
+                        <div className="ui stackable grid">
                             <div className="four">
                                 <AddButton height={'7rem'} content={false}/>
                             </div>
@@ -79,9 +80,9 @@ const AddSoftware = () => {
                         </Button>
                     </Gutter>
                     <Gutter>
-                        <section style={{display: 'flex', justifyContent: 'flex-end'}}>
+                        <FlexWrap justifyContent="flex-end">
                             <Button content='Go Live' primary />
-                        </section>
+                        </FlexWrap>
 
                     </Gutter>
                 </MainDashboardContainer>

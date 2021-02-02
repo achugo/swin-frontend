@@ -7,7 +7,7 @@ import Description from "../StyledComponents/DescriptionParagraph";
 const BlogPost = () => {
     return (
         <section>
-            <div className="ui grid">
+            <div className="ui stackable grid">
                 <div className="row">
                     <div className="eleven wide column">
                         <h2>One shoe that fits all, The IND story</h2>

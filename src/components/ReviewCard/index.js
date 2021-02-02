@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Rating } from 'semantic-ui-react'
+import FlexWrap from "../flex/FlexWrap";
+import Description from "../StyledComponents/DescriptionParagraph";
 
 const ReviewContainer = styled.div`
  background-color: #d3d3d3;
@@ -17,17 +19,13 @@ display: inline-block;
  border-radius: 10px;
 `;
 
-const Description = styled.p`
-line-height: 1.5rem;
-font-size: 1rem
 
-`;
 
 
 const ReviewCard = () => {
     return (
         <ReviewContainer>
-            <div className="ui grid">
+            <div className="ui stackable grid">
                 <div className="one wide column">
                     <RoundBadge color={"teal"}/>
                 </div>
@@ -35,10 +33,10 @@ const ReviewCard = () => {
                     <h5>Chris Jennerk<br/><span style={{fontWeight: 'normal'}}>CEO</span></h5>
                 </div>
                 <div className="five wide column">
-                    <div style={{display: "flex", justifyContent: 'space-around', alignItems: 'center'}}>
+                    <FlexWrap justifyContent={'space-around'} alignItems={'center'}>
                         <span>inc solutions</span>
                         <RoundBadge color={'red'}/>
-                    </div>
+                    </FlexWrap>
                 </div>
                 <div className="one wide column"></div>
                 <div className="thirteen wide column">
@@ -49,7 +47,9 @@ const ReviewCard = () => {
                 <div className="two wide column"></div>
                 <div className="one wide column"></div>
                 <div className="thirteen wide column">
-                    <p style={{fontSize: '0.7rem'}}>13/09/2021</p>
+                    <Description fontSize={0.7}>
+                        13/09/2021
+                    </Description>
                     <Rating icon='star' mini defaultRating={1} maxRating={5}  />
                 </div>
                 <div className="two wide column"></div>

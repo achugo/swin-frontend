@@ -4,38 +4,48 @@ import MainDashboardContainer from "../../components/StyledComponents/MainDashBo
 import {Button, Icon} from "semantic-ui-react";
 import Gutter from "../../components/StyledComponents/Gutter";
 import SoftwareEditHeader from "../../components/SoftwareEditHeader";
+import FlexWrap from "../../components/flex/FlexWrap";
 
 const EditUserProfile = () => {
     return (
         <>
             <Main>
-                <section style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <section style={{width: '60%'}}>
+                <FlexWrap justifyContent={'center'} alignItems={'center'}>
+                    <Gutter width={60} top={0} bottom={0}>
                         <Gutter top={0} bottom={10}>
-                            <section style={{display: 'flex', justifyContent: 'flex-end'}}>
+                            <FlexWrap justifyContent={'flex-end'}>
                                 <Button primary size={'tiny'}>
                                     Edit Profile
-                                    <Icon name="edit" style={{marginLeft: '0.5rem'}}/>
+                                    <Gutter display={'inline'} bottom={0} top={0} left={8}>
+                                        <Icon name="edit"/>
+                                    </Gutter>
+
                                 </Button>
-                            </section>
+                            </FlexWrap>
                         </Gutter>
                         <MainDashboardContainer>
                             <SoftwareEditHeader name={'Emmanuella'} subName={'Swartzeneggar'} fontName={'1.5rem'}
                                                 fontSubName={'1rem'} title={'Tech Official'} subTitle={'IND solution'}/>
                                                 <section>
                                                     <Gutter top={20} bottom={10}>
-                                                        <Icon name={'address book'} style={{marginRight: '0.5rem'}}/>
+                                                        <Gutter display={'inline'} top={0} bottom={0} right={7}>
+                                                            <Icon name={'address book'}/>
+                                                        </Gutter>
+
                                                         Phone Number
                                                     </Gutter>
                                                     <Gutter top={10} bottom={10}>
-                                                        <Icon name={'address book'} style={{marginRight: '0.5rem'}}/>
+                                                        <Gutter display={'inline'} top={0} bottom={0} right={7}>
+                                                            <Icon name={'address book'}/>
+                                                        </Gutter>
+
                                                         Phone Number
                                                     </Gutter>
                                                 </section>
                         </MainDashboardContainer>
-                    </section>
+                    </Gutter>
 
-                </section>
+                </FlexWrap>
             </Main>
         </>
     )
