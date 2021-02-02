@@ -11,15 +11,16 @@ const CustomButton = () => {
         </>
     )
 };
+
 const AboutSoftware = ({button=<CustomButton />}) => {
 
     return (
-        <section className={'ui grid'}>
+        <section className={'ui stackable grid'}>
             <div className="two wide column">
                 <img src={testingImage} className={'ui small rounded image'} alt=""/>
             </div>
             <div className="fourteen wide column">
-                <div className="ui grid">
+                <div className="ui stackable grid">
                     <div className="ten wide column">
                         <h3>Kza Markets</h3>
                         <div style={{margin: '0.5rem 0'}}>

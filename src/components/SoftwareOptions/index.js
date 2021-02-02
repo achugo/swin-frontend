@@ -1,4 +1,5 @@
 import React from "react";
+import Gutter from "../StyledComponents/Gutter";
 
 let dummyData = [1, 2, 3, 4, 5, 6, 7, 8];
 const SoftwareOptions = ({data = dummyData}) => {
@@ -11,7 +12,7 @@ const SoftwareOptions = ({data = dummyData}) => {
                 <h3 className={'text-bold'}>Technical Specification</h3>
                 <section>
                     <h4>Platforms</h4>
-                    <section className='ui grid'>
+                    <section className='ui stackable grid'>
                         {data.map((d) => (
                             <div className="four wide column">
                                 <div className="inline field">
@@ -27,8 +28,11 @@ const SoftwareOptions = ({data = dummyData}) => {
                 </section>
 
                 <section>
-                    <h4 style={{margin: '20px 0'}}>Deployment</h4>
-                    <section className='ui grid'>
+                    <Gutter top={20} bottom={20}>
+                        <h4>Deployment</h4>
+                    </Gutter>
+
+                    <section className='ui stackable grid'>
                         {data.slice(1, 4).map((d) => (
                             <div className="four wide column">
                                 <div className="inline field">
@@ -44,8 +48,10 @@ const SoftwareOptions = ({data = dummyData}) => {
                 </section>
 
                 <section>
-                    <h4 style={{margin: '20px 0'}}>Business Size</h4>
-                    <section className='ui grid'>
+                    <Gutter top={20} bottom={20}>
+                        <h4>Business Size</h4>
+                    </Gutter>
+                    <section className='ui stackable grid'>
                         {data.slice(1, 4).map((d) => (
                             <div className="four wide column">
                                 <div className="inline field">
@@ -61,8 +67,10 @@ const SoftwareOptions = ({data = dummyData}) => {
                 </section>
 
                 <section>
-                    <h4 style={{margin: '20px 0'}}>Training Options</h4>
-                    <section className='ui grid stacked'>
+                    <Gutter top={20} bottom={20}>
+                        <h4>Training Options</h4>
+                    </Gutter>
+                    <section className='ui stackable grid'>
                         {data.slice(1, 7).map((d) => (
                             <div className="four wide column">
                                 <div className="inline field">
@@ -80,10 +88,12 @@ const SoftwareOptions = ({data = dummyData}) => {
             </section>
 
             <section>
-                <h3 className={'text-bold'} style={{marginTop: '80px'}}> Pricing</h3>
+                <Gutter top={80} bottom={20}>
+                    <h4>Pricing</h4>
+                </Gutter>
                 <section>
                     <h4 style={gutter}>Pricing Model</h4>
-                    <section className='ui grid'>
+                    <section className='ui stackable grid'>
                         {data.slice(1, 3).map((d) => (
                             <div className="four wide column">
                                 <div className="inline field">

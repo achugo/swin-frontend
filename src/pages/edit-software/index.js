@@ -17,12 +17,15 @@ const EditSoftware = () => {
         <>
             <Main>
                 <Gutter>
-                    <section style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <FlexWrap justifyContent={'flex-end'}>
                         <Button primary size={'tiny'}>
                             Edit Company
-                            <Icon name="edit" style={{marginLeft: '0.5rem'}}/>
+                            <Gutter top={0} bottom={0} display={'inline'} left={0.5}>
+                                <Icon name="edit" style={{marginLeft: '0.5rem'}}/>
+                            </Gutter>
+
                         </Button>
-                    </section>
+                    </FlexWrap>
                 </Gutter>
                 <MainDashboardContainer>
                     <SoftwareEditHeader/>
