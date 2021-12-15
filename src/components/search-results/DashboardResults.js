@@ -157,8 +157,6 @@ const DashboardResults = (props) => {
     }
   };
 
-  console.log("prodd", products);
-
   return (
     <Container>
       {loading && (

@@ -171,8 +171,6 @@ const DynamicResults = ({ products, history, loading }) => {
     setResult(products.length);
   };
 
-  console.log("prodd", products);
-
   return (
     <Container>
       {loading && (
