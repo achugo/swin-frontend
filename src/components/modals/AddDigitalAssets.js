@@ -2,19 +2,15 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { appFont } from "../../appTheme/appFont";
 import { appColors } from "../../appTheme/appTheme";
-import CustomDropdown from "../dropdown/Dropdown";
-import { ReactComponent as ProfileIcon } from "../../img-assets/avatar-profile.svg";
 import { ReactComponent as IconEdit } from "../../img-assets/icon-edit.svg";
 import { ReactComponent as PlusIcon } from "../../img-assets/grey-plus.svg";
-import { ReactComponent as MailIcon } from "../../img-assets/email.svg";
 import {
   LoaderSpinner,
   WrapInput,
 } from "../../pages/auth/register/form/LoginForm";
 import api, { url_base } from "../../api/api";
 import Select from "../dropdown/Select";
-import { TextArea } from "semantic-ui-react";
-import { toast, Toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Wrapper = styled.div`
   background-color: ${appColors.WHITE};

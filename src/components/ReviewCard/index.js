@@ -38,6 +38,10 @@ const CompanyName = styled.span`
 `;
 
 const ReviewCard = (props) => {
+  const formatDate = (data) => {
+    let dx = new Date(data);
+    return dx.toLocaleTimeString();
+  };
   return (
     <ReviewContainer>
       <div className="ui grid">
@@ -46,9 +50,9 @@ const ReviewCard = (props) => {
         </div>
         <div className="ten wide column">
           <Name>
-            Chris Jennerk
+            {props.name && props.name}
             <br />
-            <span style={{ fontWeight: "normal" }}>CEO</span>
+            {/* <span style={{ fontWeight: "normal" }}>CEO</span> */}
           </Name>
         </div>
         <div className="five wide column">
@@ -59,8 +63,8 @@ const ReviewCard = (props) => {
               alignItems: "center",
             }}
           >
-            <CompanyName>inc solutions</CompanyName>
-            <RoundBadge color={"red"} />
+            {/* <CompanyName>inc solutions</CompanyName>
+            <RoundBadge color={"red"} /> */}
           </div>
         </div>
         <div className="one wide column"></div>
@@ -82,8 +86,10 @@ const ReviewCard = (props) => {
         <div className="two wide column"></div>
         <div className="one wide column"></div>
         <div className="thirteen wide column">
-          <p style={{ fontSize: "0.7rem" }}>13/09/2021</p>
-          <Rating icon="star" mini defaultRating={1} maxRating={5} />
+          <p style={{ fontSize: "0.7rem" }}>
+            {props.date && formatDate(props.date)}
+          </p>
+          {/* <Rating icon="star" mini defaultRating={1} maxRating={5} /> */}
         </div>
         <div className="two wide column"></div>
       </div>

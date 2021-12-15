@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { appFont } from "../../appTheme/appFont";
 import CustomDropdown from "../../components/dropdown/Dropdown";
@@ -7,18 +7,16 @@ import { Modal } from "react-responsive-modal";
 import Select from "../../components/dropdown/Select";
 import Main from "../../components/main/Main";
 import AddUser from "../../components/modals/AddUser";
-import SelectedUsers from "../../components/dropdown/SelectedUsers";
 import FlexWrap from "../../components/flex/FlexWrap";
 import MobileFlex from "../../components/flex/MobileFlex";
 import { ReactComponent as Arrow } from "../../img-assets/arrow.svg";
 import FlexItem from "../../components/flex/FlexItem";
 import MultipleSelect from "../../components/dropdown/Multiselect";
 import { LoaderSpinner, WrapInput } from "../auth/register/form/LoginForm";
-import CustomInput from "../../components/CustomInput";
 import { toast, ToastContainer } from "react-toastify";
-import api from "../../api/api";
+import api, { url_base } from "../../api/api";
 import BtnAdd from "../../components/button/BtnAdd";
-import { withRouter } from "react-router-dom";
+import { useRouteMatch, withRouter } from "react-router-dom";
 
 const Wrapper = styled.div`
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -170,12 +168,36 @@ const AddAnalysis = (props) => {
   const [search_result, setSearchResult] = useState(null);
   const [product_id, setProductId] = useState("");
   const [review_id, setReviewId] = useState("");
-  const [all_data, setAllData] = useState({});
+  const [all_data, setAllData] = useState([]);
   const [show_stages, setShowStages] = useState(false);
   const [all_stages, setAllStages] = useState({});
   const [show_start, setShowStart] = useState(false);
   const [loading, setLoading] = useState(false);
   const [show_reviewBtn, setShowReviewBtn] = useState(true);
+  const match = useRouteMatch();
+
+  useEffect(() => {
+    if (match.params.id) {
+      get_product_data();
+      setProductId(match.params.id);
+    }
+  }, []);
+
+  console.log("match", match);
+
+  const get_product_data = async () => {
+    setLoading(true);
+    const status = await api.get(`products/${match.params.id}`);
+    if (status.status) {
+      setLoading(false);
+      setInput(status.data.name);
+    } else {
+      setLoading(false);
+      if (status) {
+        toast.error(status.message);
+      }
+    }
+  };
 
   const stages = [
     { value: 1, label: "1" },
@@ -220,20 +242,19 @@ const AddAnalysis = (props) => {
   };
 
   const update_payload = () => {
-    // console.log("all data", all_data);
-    // console.log("all stages", all_stages);
     let data = [];
-    for (const key in all_stages) {
-      if (Object.hasOwnProperty.call(all_stages, key)) {
-        const element = all_stages[key];
-        // console.log("all data", all_data["0"]);
-        // console.log("all stages", all_stages["0"]);
-        // console.log("keyy_", key);
-        data.push({
-          name: element[0].value,
-          reviewers: all_data["0"][0],
-        });
-      }
+    for (const key in all_data) {
+      // if (Object.hasOwnProperty.call(all_stages, key)) {
+      const element = all_data[key];
+      const element_ = all_stages[key];
+      // console.log("all data", all_data["0"]);
+      // console.log("all stages", all_stages["0"]);
+      // console.log("keyy_", key);
+      data.push({
+        name: element_["0"].value,
+        reviewers: element,
+      });
+      // }
     }
     //  all_stages.map((item, index) => {
     //   return {
@@ -246,22 +267,29 @@ const AddAnalysis = (props) => {
   };
 
   const fetchSelected = (index, data) => {
+    console.log(index, data);
     let format_data = data.filter((item) => {
       item.user_id = item.id;
       item.is_final = total_stages.length === index + 1 ? true : false;
-      //delete item.id;
+      // delete item.id;
       return true;
     });
 
+    // if (!all_data[index]) {
+    //   setAllData(...[all_data].push(format_data));
+    // } else {
+    //   setAllData(...[all_data].splice(index, 1, data));
+    // }
+
     const new_data = {
       ...all_data,
-      [index]: (all_data[index] && all_data[index].concat(format_data)) || [
-        format_data,
-      ],
+      [index]: (all_data[index] && format_data) || [format_data],
     };
 
     setAllData(new_data);
   };
+
+  console.log("all data", all_data);
 
   const fetchDepartment = (index, data) => {
     console.log(index, data);
@@ -282,8 +310,8 @@ const AddAnalysis = (props) => {
   const create_review = async () => {
     setLoading(true);
     let payload = {
-      product_id: product_id.id,
-      name: `${product_id.name} Review`,
+      product_id: product_id.id || product_id,
+      name: `${input} Review`,
       stages: total_stages.length,
     };
     const status = await api.create("reviews", payload);
@@ -353,11 +381,11 @@ const AddAnalysis = (props) => {
           </Section>
 
           <Section>
-            <LabelHeading>Select App</LabelHeading>
+            <LabelHeading>Select Software</LabelHeading>
             {/* <CustomDropdown holder="Search for app name" /> */}
             <WrapInput>
               <SearchInput>
-                <input type="text" onChange={search_product} />
+                <input type="text" onChange={search_product} value={input} />
               </SearchInput>
             </WrapInput>
             <WrapInput>
@@ -367,7 +395,7 @@ const AddAnalysis = (props) => {
                     <FlexWrap>
                       <FlexItem flex={1}>
                         <IconWrapper>
-                          <img src="logo" alt="product" />
+                          <img src={item.logo} alt="product" />
                         </IconWrapper>
                       </FlexItem>
                       <FlexItem flex={5}>
@@ -383,14 +411,14 @@ const AddAnalysis = (props) => {
             </WrapInput>
           </Section>
           <Section>
-            <LabelHeading>Select Number of stages</LabelHeading>
+            <LabelHeading>Select Number of stages(departments)</LabelHeading>
             <Select
               getValue={fetchStages}
               holder="select stages"
               options={stages}
             />
             <div className="pad_top">
-              <BtnAdd click={create_review}>Create Review</BtnAdd>
+              <BtnAdd click={create_review}>Evaluate</BtnAdd>
             </div>
             {loading && <LoaderSpinner />}
           </Section>

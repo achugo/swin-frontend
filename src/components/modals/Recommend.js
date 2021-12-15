@@ -7,10 +7,17 @@ import { ReactComponent as ProfileIcon } from "../../img-assets/avatar-profile.s
 import { ReactComponent as IconEdit } from "../../img-assets/icon-edit.svg";
 import { ReactComponent as PhoneIcon } from "../../img-assets/phone-icon.svg";
 import { ReactComponent as MailIcon } from "../../img-assets/email.svg";
-import { WrapInput } from "../../pages/auth/register/form/LoginForm";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  LoaderSpinner,
+  WrapInput,
+} from "../../pages/auth/register/form/LoginForm";
+import emailjs from "emailjs-com";
 import AddButton from "../AddButton";
 import api from "../../api/api";
 import { BtnAdd } from "./AddCompanyUser";
+import { useRouteMatch, withRouter } from "react-router-dom";
 
 const Wrapper = styled.div`
   background-color: ${appColors.WHITE};
@@ -64,52 +71,87 @@ const InputField = styled.input`
   }
 `;
 
-const RecommendSoftware = () => {
+const RecommendSoftware = ({ close }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [name, setName] = useState("");
+  const [my_name, setMyName] = useState("");
+  const [email, setEmail] = useState("");
+  const match = useRouteMatch();
 
-  const update_profile = async (e) => {
+  console.log("match", match);
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleYourChange = (e) => {
+    setMyName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const recommend_software = async (e) => {
     e.preventDefault();
     setLoading(true);
     const payload = {
-      email: "admin@example.com",
-      first_name: "Vanguard",
-      last_name: null,
-      phone_number: null,
-      address: "",
-      avatar: null,
+      reciever_name: name,
+      reciever_email: email,
     };
-    const status = await api.create("profile", payload);
+    const status = await api.create(
+      `products/${match.params.id}/recommend`,
+      payload
+    );
     if (status.status) {
       setLoading(false);
+      toast.success("Email sent to user");
     } else {
       setLoading(false);
-      setError(status.message);
+      toast.error(status.message);
     }
   };
 
   return (
     <Wrapper>
+      <ToastContainer />
       <Heading>
         <span>Recommend to</span>
         <IconEdit />
       </Heading>
 
-      <form onSubmit={update_profile}>
+      <form onSubmit={recommend_software}>
         <WrapInput>
-          <InputField placeholder="Name" type="text" />
+          <InputField
+            placeholder="Name"
+            onChange={handleNameChange}
+            type="text"
+          />
           <ProfileIcon />
         </WrapInput>
 
         <WrapInput>
-          <InputField placeholder="Email addresss" />
+          <InputField
+            placeholder="Email addresss"
+            onChange={handleEmailChange}
+          />
           <MailIcon />
         </WrapInput>
-      </form>
 
-      <BtnAdd>Enter</BtnAdd>
+        {loading && <LoaderSpinner />}
+        {/* <WrapInput>
+          <InputField
+            placeholder="Name"
+            onChange={handleYourChange}
+            type="text"
+          />
+          <ProfileIcon />
+        </WrapInput> */}
+        <BtnAdd>Enter</BtnAdd>
+      </form>
     </Wrapper>
   );
 };
 
-export default RecommendSoftware;
+export default withRouter(RecommendSoftware);

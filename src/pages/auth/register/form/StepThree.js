@@ -29,6 +29,15 @@ const InputField = styled.input`
   }
 `;
 
+const options = [
+  { text: "Oil and Gas", value: "Oil and Gas" },
+  { text: "Construction", value: "Construction" },
+  { text: "Financial Services", value: "Financial Serices" },
+  { text: "Healthcare ", value: "Healthcare" },
+  { text: "Renewables", value: "Renewable" },
+  { text: "Aviation", value: "Aviation" },
+];
+
 const StepThree = () => {
   const [phone_number, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
@@ -55,10 +64,18 @@ const StepThree = () => {
     localStorage.setItem("reg_payload", JSON.stringify(payload));
   };
 
+  const fetchSelectedIndustry = (data) => {
+    console.log(data);
+  };
+
   return (
     <Wrapper>
       <WrapInput>
-        <CustomDropdown holder="Select Industry" />
+        <CustomDropdown
+          holder="Select Industry"
+          getCode={fetchSelectedIndustry}
+          options={options}
+        />
       </WrapInput>
 
       <WrapInput>

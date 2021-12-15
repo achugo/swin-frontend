@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DashboardSearch from "../search/DashboardSearch";
 import { ReactComponent as Profile } from "../../img-assets/avatar-profile.svg";
 import { ReactComponent as Users } from "../../img-assets/avatar-users.svg";
@@ -8,6 +8,7 @@ import { ReactComponent as AvatarProfile } from "../../img-assets/avatar_profile
 import styled from "styled-components";
 import { appFont } from "../../appTheme/appFont";
 import { withRouter } from "react-router-dom";
+import { appColors } from "../../appTheme/appTheme";
 
 const ProfileDropdown = styled.div`
   position: absolute;
@@ -72,8 +73,19 @@ const ProfileItem = styled.div`
   }
 `;
 
+const Span = styled.span`
+  color: ${appColors.WHITE};
+  font-family: ${appFont.REGULAR};
+  font-size: 16px;
+  display: inline-block;
+  padding: 1em;
+  position: relative;
+  bottom: 20px;
+`;
+
 const Navbar = (props) => {
   const [show_dropdown, setShowDropdown] = useState(false);
+  const user_payload = JSON.parse(localStorage.getItem("payload"));
 
   const trigger_dropdown = () => {
     setShowDropdown(!show_dropdown);
@@ -101,7 +113,9 @@ const Navbar = (props) => {
             <div className="navbar__left">
               <DashboardSearch />
             </div>
+
             <div className="navbar__right">
+              {user_payload && <Span>{user_payload.first_name}</Span>}
               <AvatarProfile onClick={trigger_dropdown} />
               {show_dropdown && (
                 <ProfileDropdown>
@@ -110,15 +124,18 @@ const Navbar = (props) => {
                       <Profile />
                       <span>Profile</span>
                     </ProfileItem>
+                    {/* {user_payload &&
+                      user_payload.companies[0].type !== "vendor" && ( */}
                     <ProfileItem onClick={() => goTo("users")}>
                       <Users />
                       <span>Users</span>
                     </ProfileItem>
+                    {/* )} */}
+
                     <ProfileItem onClick={() => goTo("company")}>
                       <Company />
                       <span>Company</span>
                     </ProfileItem>
-
                     <ProfileItem onClick={() => log_out("/")}>
                       <Logout />
                       <span>Logout</span>

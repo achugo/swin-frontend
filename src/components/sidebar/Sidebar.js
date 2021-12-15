@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Logo from "../../img-assets/swin-logo.png";
 import { ReactComponent as SoftwareIcon } from "../../img-assets/softwares.svg";
 import { ReactComponent as SoftwareIconActive } from "../../img-assets/software-icon-active.svg";
@@ -6,11 +6,9 @@ import { ReactComponent as SwinLogo } from "../../img-assets/logo-swin.svg";
 import { ReactComponent as Mysoftwares } from "../../img-assets/mysoftwares.svg";
 import { ReactComponent as AnalyzeIcon } from "../../img-assets/analyze-icon.svg";
 import { ReactComponent as AnalyzeIconInactive } from "../../img-assets/analyze-icon-active.svg";
-import { ReactComponent as Aboutus } from "../../img-assets/about-us.svg";
 import { ReactComponent as SoftwareIconInactive } from "../../img-assets/software-icon-inactive.svg";
 import { ReactComponent as Notification } from "../../img-assets/notification.svg";
 import { Route, Switch, withRouter } from "react-router-dom";
-import Main from "../main/Main";
 import Software from "../softwares/Software";
 import SoftwareBlog from "../../pages/software-blog";
 import SoftwareDetails2 from "../../pages/software-details-2";
@@ -30,13 +28,18 @@ import Mysoftware from "../../pages/my-software/Mysoftware";
 import CompanyUsers from "../../pages/company-users/Companyusers";
 import EvaluateProduct from "../../pages/product-details/EvaluateProduct";
 import CollateralContent from "../../pages/product-details/CollateralContent";
-import CorporateWebsite from "../../pages/corporate-website/CorporateWebsite";
 import BlogListing from "../../pages/product-details/BlogListing";
 import Blogpage from "../../pages/product-details/Blogpage";
 import update from "../../pages/add-software/update";
+import SearchPage from "../search/SearchPage";
 
 const Sidebar = (props) => {
   const [active_link, setActiveLink] = useState(0);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    setUserData(JSON.parse(localStorage.getItem("payload")));
+  }, []);
 
   const navigate = (route, index) => {
     props.history.push(`${route}`);
@@ -46,7 +49,7 @@ const Sidebar = (props) => {
   const sidebar_links = [
     { name: "Software", url: "" },
     { name: "My software", url: "/dashboard/mysoftware" },
-    { name: "Analyze", url: "/dashboard/analyze" },
+    { name: "Evaluate", url: "/dashboard/analyze" },
     { name: "Nofitication", url: "/dashboard/notifications" },
     // { name: "Swin", url: "/about" },
   ];
@@ -67,56 +70,65 @@ const Sidebar = (props) => {
           />
         </div>
 
-        <div className="sidebar__menu">
-          {sidebar_links.map((item, index) => {
-            return (
-              <>
-                <div
-                  onClick={() => navigate(item.url, index)}
-                  className={`sidebar__link ${
-                    index === active_link && "active_menu_link"
-                  }`}
-                >
-                  {index === 0 && (
+        {userData && (
+          <div className="sidebar__menu">
+            {sidebar_links.map((item, index) => {
+              return (
+                <>
+                  <div
+                    onClick={() => navigate(item.url, index)}
+                    className={`sidebar__link ${
+                      index === active_link && "active_menu_link"
+                    }  ${
+                      index === 1 && userData.companies[0].type !== "vendor"
+                        ? "invisible"
+                        : ""
+                    }
+                    `}
+                  >
+                    {index === 0 && (
+                      <>
+                        {index === 0 && index === active_link ? (
+                          <SoftwareIcon />
+                        ) : (
+                          <SoftwareIconInactive />
+                        )}
+                      </>
+                    )}
+
                     <>
-                      {index === 0 && index === active_link ? (
-                        <SoftwareIcon />
-                      ) : (
-                        <SoftwareIconInactive />
+                      {index === 1 && (
+                        <>
+                          {index === 1 && index === active_link ? (
+                            <SoftwareIconActive />
+                          ) : (
+                            <Mysoftwares />
+                          )}
+                        </>
                       )}
                     </>
-                  )}
 
-                  {index === 1 && (
-                    <>
-                      {index === 1 && index === active_link ? (
-                        <SoftwareIconActive />
-                      ) : (
-                        <Mysoftwares />
-                      )}
-                    </>
-                  )}
+                    {index === 2 && (
+                      <>
+                        {index === 2 && index === active_link ? (
+                          <AnalyzeIconInactive />
+                        ) : (
+                          <AnalyzeIcon />
+                        )}
+                      </>
+                    )}
 
-                  {index === 2 && (
-                    <>
-                      {index === 2 && index === active_link ? (
-                        <AnalyzeIconInactive />
-                      ) : (
-                        <AnalyzeIcon />
-                      )}
-                    </>
-                  )}
+                    {index === 3 && <>{index === 3 && <Notification />}</>}
 
-                  {index === 3 && <>{index === 3 && <Notification />}</>}
+                    {/* {index === 4 && <>{index === 4 && <Aboutus />}</>} */}
 
-                  {/* {index === 4 && <>{index === 4 && <Aboutus />}</>} */}
-
-                  <span>{item.name}</span>
-                </div>
-              </>
-            );
-          })}
-        </div>
+                    <span>{item.name}</span>
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        )}
       </div>
       <Switch>
         <Route exact path="/dashboard" component={Software} />
@@ -133,6 +145,7 @@ const Sidebar = (props) => {
           path="/dashboard/product/:id/post/:post"
           component={Blogpage}
         />
+        <Route exact path="/dashboard/search/:id" component={SearchPage} />
         <Route
           path="/dashboard/product/:id/:collateral"
           component={CollateralContent}
@@ -147,7 +160,12 @@ const Sidebar = (props) => {
           component={SoftwareDetails2}
         />
         <Route path="/dashboard/analyze" component={Analyze} />
-        <Route path="/dashboard/analyze-product" component={AddAnalysis} />
+        <Route
+          exact
+          path="/dashboard/analyze-product"
+          component={AddAnalysis}
+        />
+        <Route path="/dashboard/analyze-product/:id" component={AddAnalysis} />
         <Route path="/dashboard/all-analysis" component={AllAnalysis} />
         <Route path="/dashboard/notifications" component={Notifications} />
         <Route

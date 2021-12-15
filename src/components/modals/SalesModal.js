@@ -161,26 +161,25 @@ const Details = styled.div`
 
 const SalesModal = ({ triggerClose }) => {
   const [loading, setLoading] = useState(false);
-  const [review, setReview] = useState("");
-  const [rating, setRating] = useState(0);
-
+  const [country_, setCountry] = useState("");
+  const [region, setRegion] = useState("");
+  const [message, setMessage] = useState("");
   const [user_role, setUserRole] = useState(null);
   const country = ["Nigeria", "South Africa", "Ghana"];
   const continent = ["Africa", "Europe", "Asia"];
 
   const match = useRouteMatch();
 
-  const review_product = async (e) => {
+  const contact_salesMgr = async (e) => {
     e.preventDefault();
     setLoading(true);
     const payload = {
-      review: review,
-      rating: Number(rating),
+      message: message,
+      product_id: match.params.id,
+      country: country_.value,
+      region: region.value,
     };
-    const status = await api.create(
-      `products/${match.params.id}/review`,
-      payload
-    );
+    const status = await api.create(`sales/contact`, payload);
     console.log("status", status);
     if (status.status) {
       setLoading(false);
@@ -192,12 +191,16 @@ const SalesModal = ({ triggerClose }) => {
     }
   };
 
-  const handleReviewChange = (e) => {
-    setReview(e.target.value);
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
   };
 
   const fetchSelectValue = (data) => {
-    setUserRole(data);
+    setCountry(data);
+  };
+
+  const fetchSelectRegion = (data) => {
+    setRegion(data);
   };
 
   return (
@@ -212,7 +215,7 @@ const SalesModal = ({ triggerClose }) => {
         <Select
           holder="Select Region"
           options={continent}
-          getValue={fetchSelectValue}
+          getValue={fetchSelectRegion}
         />
       </WrapInput>
 
@@ -251,14 +254,14 @@ const SalesModal = ({ triggerClose }) => {
         </div>
       </Details>
 
-      <form onSubmit={review_product}>
+      <form onSubmit={contact_salesMgr}>
         <div className="ui grid">
           <div className="sixteen wide column">
             <WrapInput>
               <TextField
                 required
                 placeholder="Send a Message"
-                onChange={(e) => handleReviewChange(e)}
+                onChange={(e) => handleMessageChange(e)}
               />
             </WrapInput>
           </div>

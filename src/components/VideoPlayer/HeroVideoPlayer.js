@@ -5,6 +5,7 @@ import VideoBackground from "../StyledComponents/VideoBackground";
 import "./styles.css";
 import play from "../../img-assets/play.png";
 import styled from "styled-components";
+import { appFont } from "../../appTheme/appFont";
 
 const Center = styled.div`
   display: flex;
@@ -17,14 +18,18 @@ const Center = styled.div`
   }
 `;
 
-const HeroVedeoPlayer = ({ video = video1, videoPoster = poster }) => {
+const Heading = styled.h4`
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  font-family: ${appFont.MEDIUM};
+  color: #34eee3;
+`;
+
+const HeroVedeoPlayer = ({ video, category }) => {
   return (
-    <VideoBackground video={video1} videoPoster={videoPoster}>
-      {/* <h4 className="watch text-white">
-        We take the
-        <br /> baggage off <br />
-        you
-      </h4> */}
+    <VideoBackground video={video1} videoPoster={video}>
+      <Heading className="watch">{category}</Heading>
       <Center>
         <img src={play} alt="play button" />
         {/* <i className="fa fa-play-circle-o play" aria-hidden="true"></i> */}

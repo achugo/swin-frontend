@@ -8,6 +8,7 @@ import Main from "../../components/main/Main";
 import { ReactComponent as Plus } from "../../img-assets/plus.svg";
 import product_url from "../../img-assets/dummy-img.png";
 import { appColors } from "../../appTheme/appTheme";
+import { ReactComponent as BackIcon } from "../../img-assets/backIcon.svg";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -117,12 +118,27 @@ const Status = styled.div`
   }
 `;
 
-const Analyze = () => {
+const BackWrapper = styled.div`
+  margin-top: 50px;
+  padding-left: 50px;
+  svg {
+    max-width: 40px;
+    cursor: pointer;
+  }
+`;
+
+const Analyze = (props) => {
+  const go_back_to_dashboard = () => {
+    props.history.push(`/dashboard/`);
+  };
   return (
     <Main>
       <Wrapper>
         <>
           <Section style={{ height: "50px" }}>
+            <BackWrapper>
+              <BackIcon onClick={go_back_to_dashboard} />
+            </BackWrapper>
             <Button>
               <span>New Analysis</span>
               <Plus />

@@ -82,7 +82,7 @@ const FollowerSection = styled.div`
 
 const CompanyButton = styled.button`
   background-color: transparent;
-  padding: 0.2em 0.8em;
+  padding: 0.2em 0.8em 0.2em 0;
   border-right: 1px solid #777777;
   min-width: 160px;
 
@@ -103,7 +103,7 @@ const FollowButton = styled.button`
   background-color: transparent;
   padding: 0.6em 0.8em;
   border: 1px solid #334a90;
-  min-width: 160px;
+  min-width: 120px;
   border-radius: 5px;
   span {
     color: #334a90;
@@ -120,7 +120,7 @@ const Recommend = styled.button`
     0% no-repeat padding-box;
   padding: 0.6em 0.8em;
   border: none;
-  min-width: 160px;
+  min-width: 120px;
   border-radius: 5px;
   span {
     color: white;
@@ -135,7 +135,6 @@ const LikeButton = styled.button`
   margin-left: 25px;
   position: relative;
 
-  left: 20px;
   margin-bottom: 30px;
   background: transparent linear-gradient(107deg, #74e0ff 0%, #41a0ff 100%) 0%
     0% no-repeat padding-box;
@@ -195,6 +194,8 @@ const EvaluateButton = styled.button`
 `;
 const SectionNext = styled.div`
   margin-top: 0em;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const WrapImage = styled.div`
@@ -231,6 +232,30 @@ const AboutSoftware = (props) => {
   const [open_recommend, setOpenRecommend] = useState(false);
   const onOpenRecommendModal = () => setOpenRecommend(true);
   const onCloseRecommendModal = () => setOpenRecommend(false);
+  const [likeCounter, setLikeCounter] = useState(907);
+  const [clickedLike, setClickedLike] = useState(false);
+  const [clickedFollow, setClickedFollow] = useState(false);
+  const [followcounter, setFollowCounter] = useState(210);
+
+  const trigger_like = () => {
+    if (!clickedLike) {
+      setLikeCounter(likeCounter + 1);
+      setClickedLike(true);
+    } else {
+      setLikeCounter(likeCounter - 1);
+      setClickedLike(false);
+    }
+  };
+
+  const trigger_follow = () => {
+    if (!clickedFollow) {
+      setFollowCounter(followcounter + 1);
+      setClickedFollow(true);
+    } else {
+      setFollowCounter(followcounter - 1);
+      setClickedFollow(false);
+    }
+  };
 
   return (
     <Wrapper>
@@ -238,7 +263,12 @@ const AboutSoftware = (props) => {
         <SalesModal triggerClose={onCloseSalesModal} />
       </Modal>
       <Modal open={open_recommend} onClose={onCloseRecommendModal} center>
-        <RecommendSoftware triggerClose={onCloseRecommendModal} />
+        {props.data && (
+          <RecommendSoftware
+            triggerClose={onCloseRecommendModal}
+            name={props.data.name}
+          />
+        )}
       </Modal>
       {props.data && (
         <section className={"ui grid"}>
@@ -268,7 +298,11 @@ const AboutSoftware = (props) => {
                   </div>
                   <div className="column">
                     <EvaluateButton
-                      onClick={() => props.history.push("/dashboard/analyze")}
+                      onClick={() =>
+                        props.history.push(
+                          `/dashboard/analyze-product/${match.params.id}`
+                        )
+                      }
                     >
                       <span>Evaluate</span>
                       <Evaluate />
@@ -307,17 +341,20 @@ const AboutSoftware = (props) => {
                     <div className="inline">
                       <h5>Followers</h5>
                       <Like />
-                      <span>210</span>
+                      <span>{followcounter}</span>
                     </div>
                     <div className="inline">
                       <h5>Likes</h5>
-                      <Like />
-                      <span>987</span>
+                      <Like
+                        style={{ cursor: "pointer" }}
+                        onClick={trigger_like}
+                      />
+                      <span>{likeCounter}</span>
                     </div>
                   </FollowerSection>
 
                   <SectionNext>
-                    <FollowButton>
+                    <FollowButton onClick={trigger_follow}>
                       <span>Follow</span>
                     </FollowButton>
                     <Recommend onClick={onOpenRecommendModal}>
@@ -343,11 +380,11 @@ const AboutSoftware = (props) => {
             </div>
           </div>
           <div className="sixteen wide column">
-            <SectionNext>
-              <h3 className="heading">Overview</h3>
-              <p>{props.data.description}</p>
-            </SectionNext>
-            {/* <Description>{props.data.tech_description}</Description> */}
+            {/* <SectionNext> */}
+            <h3 className="heading">Overview</h3>
+            {/* <p>{props.data.description}</p> */}
+            {/* </SectionNext> */}
+            <Description>{props.data.tech_description}</Description>
           </div>
         </section>
       )}

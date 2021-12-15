@@ -9,6 +9,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.4",
+    "emailjs-com": "^2.6.4",
     "google-maps-react": "^2.0.6",
     "multiselect-react-dropdown": "^1.6.3",
     "qrcode.react": "^1.0.0",

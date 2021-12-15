@@ -3,7 +3,7 @@ import axios from "axios";
 const token = localStorage.getItem("token");
 
 axios.defaults.headers.common = {
-  Authorization: `Bearer ${token || ""}`,
+  Authorization: `Bearer ${token}`,
   "Content-Type": "application/json",
   Accept: "application/json",
 };

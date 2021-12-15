@@ -39,7 +39,7 @@ function App() {
         }
       />
       <Route path="/register" component={Register} />
-      <Route path="/complete-registration" component={CompleteRegister} />
+      <Route path="/complete-registration/:id" component={CompleteRegister} />
       <Route path="/login" component={Login} />
 
       {/* <Route

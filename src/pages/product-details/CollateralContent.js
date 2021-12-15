@@ -18,6 +18,17 @@ import Modal from "react-responsive-modal";
 import RequestAccess from "../../components/modals/RequestAccess";
 import Evaluation from "../../components/modals/Evaluation";
 import BlogListing from "./BlogListing";
+import { ReactComponent as BackIcon } from "../../img-assets/backIcon.svg";
+import ResourceModal from "../../components/modals/ResourceModal";
+
+const BackWrapper = styled.div`
+  margin-top: 50px;
+  padding-left: 50px;
+  svg {
+    max-width: 40px;
+    cursor: pointer;
+  }
+`;
 
 const Wrapper = styled.div`
   text-align: center;
@@ -201,6 +212,9 @@ const CollateralContent = (props) => {
   const onOpenModal = () => setOpen(true);
   const [open, setOpen] = useState(false);
   const onCloseModal = () => setOpen(false);
+  const [resourceOpen, setResourceOpen] = useState(false);
+  const [asset, setAsset] = useState("");
+  const [type, setType] = useState("");
 
   const match = useRouteMatch();
   useEffect(() => {
@@ -223,6 +237,10 @@ const CollateralContent = (props) => {
         toast.error(status.message);
       }
     }
+  };
+
+  const go_back_to_product = () => {
+    props.history.push(`/dashboard/product/${match.params.id}`);
   };
 
   const get_collateral_data = async () => {
@@ -249,16 +267,42 @@ const CollateralContent = (props) => {
     return dx.toUTCString();
   };
 
-  const file_open = (data, access) => {
+  const file_open = (data, access, type) => {
+    setAsset(data);
     if (access === "open") {
-      window.open(data);
+      // window.open(data);
+
+      setResourceOpen(true);
+      if (type.includes("image")) {
+        setType("image");
+      } else {
+        setType("video");
+      }
     }
+  };
+
+  const onCloseModalResource = () => {
+    setResourceOpen(false);
   };
   return (
     <Main>
       <Modal open={open} onClose={onCloseModal} center>
         <RequestAccess />
       </Modal>
+      <div className="resource-wrap">
+        <Modal
+          open={resourceOpen}
+          onClose={onCloseModalResource}
+          center
+          style={{ maxWidth: "80vw" }}
+        >
+          <ResourceModal
+            type={type}
+            asset={asset}
+            triggerClose={onCloseModalResource}
+          />
+        </Modal>
+      </div>
       <MiniNav>
         {product_data &&
           product_data.file_categories.map((item) => (
@@ -276,6 +320,11 @@ const CollateralContent = (props) => {
             </span>
           ))}
       </MiniNav>
+
+      <BackWrapper>
+        <BackIcon onClick={go_back_to_product} />
+      </BackWrapper>
+
       <Wrapper>
         <>
           {loading && (
@@ -293,7 +342,9 @@ const CollateralContent = (props) => {
                         className={
                           item.access === "restricted" ? "restricted" : "open"
                         }
-                        onClick={() => file_open(item.file, item.access)}
+                        onClick={() =>
+                          file_open(item.file, item.access, item.type)
+                        }
                       >
                         <FlexWrap>
                           <FlexItem flex={1}>

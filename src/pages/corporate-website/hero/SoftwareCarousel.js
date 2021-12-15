@@ -26,6 +26,9 @@ const responsive = {
 
 const Wrapper = styled.div`
   margin: 4em 10vw;
+  @media screen and (max-width: 768px) {
+    margin: 4em 0;
+  }
 `;
 
 const SoftwareCarousel = () => {

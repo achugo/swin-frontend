@@ -18,6 +18,10 @@ const CollateralCard = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   cursor: pointer;
   border-radius: 10px;
+
+  @media screen and (max-width: 1400px) {
+    padding: 1rem;
+  }
 `;
 
 const DigitalCollateral = ({ collateral, id, history }) => {
@@ -53,7 +57,7 @@ const DigitalCollateral = ({ collateral, id, history }) => {
   };
 
   return (
-    <div className="ui four column grid stackable">
+    <div className="ui three column grid stackable">
       {collateral &&
         collateral.map((item) => (
           <div className="column">
@@ -65,7 +69,12 @@ const DigitalCollateral = ({ collateral, id, history }) => {
               }
             >
               <div className={"card-content"}>
-                <img src={formatSelected(item.category)} alt="" height={60} />
+                <img
+                  src={formatSelected(item.category)}
+                  alt=""
+                  height={60}
+                  style={{ maxWidth: "40px" }}
+                />
                 <h5>{item.category}</h5>
               </div>
             </CollateralCard>

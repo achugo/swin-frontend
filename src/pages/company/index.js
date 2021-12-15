@@ -80,6 +80,7 @@ const CompanyPage = () => {
   const [user_data, setUserData] = useState([]);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+  const userData = JSON.parse(localStorage.getItem("payload"));
 
   useEffect(() => {
     list_sales_mgr();
@@ -134,9 +135,11 @@ const CompanyPage = () => {
             </Description>
           </Gutter>
           <ContactForm />
-          <BtnAdd style={{ float: "none" }} onClick={onOpenModal}>
-            Add Sales Manager
-          </BtnAdd>
+          {userData && userData.companies[0].type === "vendor" && (
+            <BtnAdd style={{ float: "none" }} onClick={onOpenModal}>
+              Add Sales Manager
+            </BtnAdd>
+          )}
 
           <Section>
             <Table>

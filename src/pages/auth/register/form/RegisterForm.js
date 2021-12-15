@@ -81,7 +81,7 @@ const RegisterForm = () => {
 
   const go_to_next = () => {
     let payload = JSON.parse(localStorage.getItem("reg_payload"));
-    if (current_step === 1 && payload.user_type !== undefined) {
+    if (current_step === 1 && payload.company_type !== undefined) {
       setCurrentStep(current_step + 1);
     }
     if (

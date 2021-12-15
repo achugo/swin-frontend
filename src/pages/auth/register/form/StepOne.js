@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { appFont } from "../../../../appTheme/appFont";
 import { appColors } from "../../../../appTheme/appTheme";
@@ -61,15 +61,18 @@ const BoxHeading = styled.h4`
 `;
 
 const StepOne = () => {
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
   const [select_vendor, setSelectVendor] = useState(
     localStorage.getItem("reg_payload") &&
-      JSON.parse(localStorage.getItem("reg_payload")).user_type == "vendor"
+      JSON.parse(localStorage.getItem("reg_payload")).company_type == "vendor"
       ? true
       : false
   );
   const [select_enduser, setSelectEndUser] = useState(
     localStorage.getItem("reg_payload") &&
-      JSON.parse(localStorage.getItem("reg_payload")).user_type == "end_user"
+      JSON.parse(localStorage.getItem("reg_payload")).company_type == "user"
       ? true
       : false
   );
@@ -78,7 +81,7 @@ const StepOne = () => {
     setSelectEndUser(false);
     localStorage.setItem(
       "reg_payload",
-      JSON.stringify({ user_type: "vendor" })
+      JSON.stringify({ company_type: "vendor" })
     );
   };
 
@@ -87,7 +90,7 @@ const StepOne = () => {
     setSelectEndUser(true);
     localStorage.setItem(
       "reg_payload",
-      JSON.stringify({ user_type: "end_user" })
+      JSON.stringify({ company_type: "user" })
     );
   };
 

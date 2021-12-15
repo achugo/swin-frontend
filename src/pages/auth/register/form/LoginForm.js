@@ -142,6 +142,7 @@ const LoginForm = (props) => {
     const status = await api.create("login", payload);
     if (status.status) {
       setLoading(false);
+      localStorage.setItem("payload", JSON.stringify(status.data));
       localStorage.setItem("token", status.token);
       props.history.push("/dashboard");
     } else {
@@ -149,6 +150,7 @@ const LoginForm = (props) => {
       setError(status.message);
     }
   };
+
   return (
     <FormWrapper>
       <div className="heading">
@@ -166,7 +168,6 @@ const LoginForm = (props) => {
             />
             <Mail />
           </WrapInput>
-
           <WrapInput>
             <InputField
               onChange={handlePasswordChange}

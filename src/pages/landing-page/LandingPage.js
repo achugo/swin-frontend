@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { appFont } from "../../appTheme/appFont";
 import Navigation from "../../components/nav/Navbar";
@@ -20,6 +20,9 @@ const WrapLandingPage = styled.div`
 `;
 
 const LandingPage = () => {
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
   return (
     <WrapLandingPage>
       <Navigation />

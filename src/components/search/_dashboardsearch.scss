@@ -1,6 +1,7 @@
 .dashboard__search {
   text-align: left;
   width: 50vw;
+  position: relative;
 
   .wrap__search {
     position: relative;
@@ -40,6 +41,13 @@
         padding-left: 10px;
       }
     }
+  }
+  .categories {
+    position: absolute;
+    font-family: $LIGHT-POPPING;
+    color: white !important;
+    bottom: -5px;
+    font-size: 14px;
   }
 }
 

@@ -162,7 +162,6 @@ const Analyze = (props) => {
     }
   };
 
-  console.log("all", all_reviews);
   return (
     <Main>
       {loading && (
@@ -183,7 +182,7 @@ const Analyze = (props) => {
               <Button
                 onClick={() => props.history.push("/dashboard/analyze-product")}
               >
-                Analyze Product
+                Evaluate Product
               </Button>
             </Section>
           </Wrapper>
@@ -232,10 +231,10 @@ const Analyze = (props) => {
                     </Stages>
                   </FlexItem>
                   <FlexItem flex={2}>
-                    <Status>
+                    {/* <Status>
                       <h5>0/2</h5>
                       <span>Pending</span>
-                    </Status>
+                    </Status> */}
                   </FlexItem>
                 </FlexWrap>
               </Product>

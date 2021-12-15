@@ -3,6 +3,10 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import styled from "styled-components";
 import HeroVedeoPlayer from "../VideoPlayer/HeroVideoPlayer";
+import aviation from "../../img-assets/aviation.png";
+import construction from "../../img-assets/construction.png";
+import finance from "../../img-assets/finance.png";
+import healthcare from "../../img-assets/healthcare.png";
 
 const responsive = {
   superLargeDesktop: {
@@ -69,9 +73,10 @@ const VedeoCarousel = () => {
       slidesToSlide={1}
       swipeable
     >
-      <HeroVedeoPlayer />
-      <HeroVedeoPlayer />
-      <HeroVedeoPlayer />
+      <HeroVedeoPlayer video={finance} category="Financial Services" />
+      <HeroVedeoPlayer video={healthcare} category="Healthcare" />
+      <HeroVedeoPlayer video={construction} category="Construction" />
+      <HeroVedeoPlayer video={aviation} category="Aviation" />
     </Carousel>
   );
 };

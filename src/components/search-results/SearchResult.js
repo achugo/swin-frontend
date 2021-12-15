@@ -25,6 +25,7 @@ const Wrapper = styled.div`
   margin: 0px 10vw;
   @media screen and (max-width: 768px) {
     max-width: 100%;
+    margin: 0px 15px;
   }
 `;
 
@@ -131,6 +132,10 @@ const SeeMore = styled.button`
   float: right;
   border: none;
 
+  @media screen and (max-width: 768px) {
+    padding: 0.5em 1.2em;
+  }
+
   &:focus {
     outline: none;
     border: none;
@@ -176,7 +181,7 @@ const SearchResult = (props) => {
               {/* <Count>53 Softwares</Count> */}
             </HeaderSection>
             <StyledResults>
-              <div class="ui grid five column grid">
+              <div class="ui grid five column grid stackable">
                 {products &&
                   products.data.length > 0 &&
                   products.data.slice(0, 5).map((item) => (
@@ -223,7 +228,7 @@ const SearchResult = (props) => {
               {/* <Count>53 Softwares</Count> */}
             </HeaderSection>
             <StyledResults>
-              <div class="ui grid five column grid">
+              <div class="ui grid five column grid stackable">
                 {products &&
                   products.data.length > 0 &&
                   products.data.slice(5, 10).map((item) => (

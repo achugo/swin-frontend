@@ -1,6 +1,8 @@
-import React from "react";
+import { Modal } from "react-responsive-modal";
+import React, { useState } from "react";
 import styled from "styled-components";
-const VideoBackgroundContainer = styled.a`
+import ResourceModal from "../modals/ResourceModal";
+const VideoBackgroundContainer = styled.div`
   display: block;
   width: 100%;
   height: 50vh;
@@ -12,15 +14,41 @@ const VideoBackgroundContainer = styled.a`
 `;
 
 const VideoBackground = ({ children, videoPoster, video, height }) => {
+  const [open, setOpen] = useState(false);
+  const onCloseModal = () => {
+    setOpen(false);
+  };
+
+  const onOpenModal = () => {
+    setOpen(true);
+  };
   return (
-    <VideoBackgroundContainer
-      href={video}
-      videoPoster={videoPoster}
-      data-effect="fadeIn"
-      height={height}
-    >
-      {children}
-    </VideoBackgroundContainer>
+    <>
+      <div className="resource-wrap">
+        <Modal
+          open={open}
+          onClose={onCloseModal}
+          center
+          style={{ maxWidth: "80vw" }}
+        >
+          <ResourceModal
+            type="video"
+            asset={video}
+            triggerClose={onCloseModal}
+          />
+        </Modal>
+      </div>
+
+      <VideoBackgroundContainer
+        // href={video}
+        onClick={onOpenModal}
+        videoPoster={videoPoster}
+        data-effect="fadeIn"
+        height={height}
+      >
+        {children}
+      </VideoBackgroundContainer>
+    </>
   );
 };
 

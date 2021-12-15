@@ -9,7 +9,10 @@ import { ReactComponent as ProfileIcon } from "../../img-assets/avatar-profile.s
 import { ReactComponent as IconEdit } from "../../img-assets/icon-edit.svg";
 import { ReactComponent as PhoneIcon } from "../../img-assets/phone-icon.svg";
 import { ReactComponent as MailIcon } from "../../img-assets/email.svg";
-import { WrapInput } from "../../pages/auth/register/form/LoginForm";
+import {
+  LoaderSpinner,
+  WrapInput,
+} from "../../pages/auth/register/form/LoginForm";
 import api from "../../api/api";
 import Select from "../dropdown/Select";
 
@@ -105,7 +108,7 @@ const AddCompanyUser = ({ triggerClose }) => {
   const [email, setEmail] = useState("");
   const [user_role, setUserRole] = useState(null);
 
-  const roles = ["admin", "sales", "finance"];
+  const roles = ["IT", "Sales", "Finance", "End User"];
 
   const update_profile = async (e) => {
     e.preventDefault();
@@ -123,7 +126,7 @@ const AddCompanyUser = ({ triggerClose }) => {
       triggerClose();
     } else {
       setLoading(false);
-      toast.error(status.message);
+      toast.error(status.message + status.errors && status.errors["0.email"]);
     }
   };
 
@@ -142,7 +145,7 @@ const AddCompanyUser = ({ triggerClose }) => {
       <form onSubmit={update_profile}>
         <WrapInput>
           <Select
-            holder="Select Role"
+            holder="Select Department"
             options={roles}
             getValue={fetchSelectValue}
           />
@@ -156,6 +159,7 @@ const AddCompanyUser = ({ triggerClose }) => {
           />
           <MailIcon />
         </WrapInput>
+        {loading && <LoaderSpinner />}
         <AddButton>Enter</AddButton>
       </form>
     </Wrapper>

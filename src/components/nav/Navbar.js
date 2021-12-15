@@ -106,7 +106,7 @@ const Navigation = (props) => {
       )} */}
           <div
             id="nav-icon1"
-            onClick={() => setshow_nav(!show_nav)}
+            // onClick={() => setshow_nav(!show_nav)}
             className={show_nav ? "open" : ""}
           >
             <span></span>

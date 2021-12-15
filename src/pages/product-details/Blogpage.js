@@ -239,6 +239,31 @@ const TextField = styled.textarea`
   }
 `;
 
+const InputField = styled.input`
+  display: block;
+  background: #ededed 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.11);
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 80%;
+  padding: 1em;
+  margin: 0em 0 1.5em 0;
+  font-size: 15px;
+  font-family: ${appFont.LIGHTPOPPING};
+  outline: none;
+  border: none;
+  position: relative;
+
+  &::focus {
+    outline: none;
+    border: none;
+  }
+  &:placeholder {
+    color: rgba(67, 67, 67, 1);
+    font-family: ${appFont.LIGHTPOPPING};
+  }
+`;
+
 const BlogPage = (props) => {
   const [loading, setLoading] = useState(false);
   const [collateral_data, setCollateralData] = useState([]);
@@ -247,6 +272,7 @@ const BlogPage = (props) => {
   const onOpenModal = () => setOpen(true);
   const [post_data, setPostData] = useState(null);
   const [comment, setComment] = useState("");
+  const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
   const onCloseModal = () => setOpen(false);
   const [show_comment, setShowComment] = useState(false);
@@ -298,9 +324,11 @@ const BlogPage = (props) => {
 
   const post_comment = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const payload = {
       post_id: match.params.post,
       comment: comment,
+      name: name,
       file: "null",
     };
     const status = await api.create(`comments`, payload);
@@ -344,6 +372,10 @@ const BlogPage = (props) => {
         toast.error(status.message);
       }
     }
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
   };
 
   const formatDate = (data) => {
@@ -465,6 +497,10 @@ const BlogPage = (props) => {
                                 required
                                 placeholder="Write a review"
                               />
+                              <InputField
+                                placeholder="Enter name"
+                                onChange={handleNameChange}
+                              />
                               <BtnAdd
                                 style={{ float: "none", textAlign: "right" }}
                               >
@@ -480,16 +516,20 @@ const BlogPage = (props) => {
                       {comment_data &&
                         comment_data.map((item) => (
                           <WrapComment>
-                            <ReviewCard comment={item.comment} />
+                            <ReviewCard
+                              comment={item.comment}
+                              name={item.name}
+                              date={item.updated_at}
+                            />
                           </WrapComment>
                         ))}
 
-                      <WrapComment>
+                      {/* <WrapComment>
                         <ReviewCard />
                       </WrapComment>
                       <WrapComment>
                         <ReviewCard />
-                      </WrapComment>
+                      </WrapComment> */}
                     </div>
                     <div className="seven wide column">
                       <AlignLeft>

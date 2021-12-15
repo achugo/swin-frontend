@@ -96,45 +96,33 @@ const DashboardSearch = (props) => {
       setSearchResult([]);
     }
   };
+
+  const goToSearchPage = (e) => {
+    e.preventDefault();
+    props.history.push(`/dashboard/search/${search_input}`);
+  };
+
   return (
     <div className="dashboard__search">
-      <div className="wrap__search" style={{ zIndex: 90 }}>
-        <input
-          type="text"
-          placeholder="search"
-          value={search_input}
-          onChange={search_product}
-        />
+      <form onSubmit={goToSearchPage}>
+        <div className="wrap__search" style={{ zIndex: 90 }}>
+          <input
+            type="text"
+            placeholder="search"
+            value={search_input}
+            onChange={search_product}
+          />
 
-        <button>
-          <SearchIcon />
-          <span>Search</span>
-        </button>
-      </div>
-      {search_result.length > 0 && (
-        <WrapSearch>
-          <WrapInput>
-            {search_result.map((item) => (
-              <Product onClick={() => select_product(item)}>
-                <FlexWrap>
-                  <FlexItem flex={1}>
-                    <IconWrapper>
-                      <img src={item.logo} alt="product" />
-                    </IconWrapper>
-                  </FlexItem>
-                  <FlexItem flex={5}>
-                    <NotifyContent>
-                      <h4>{item.name}</h4>
-                      <span>description</span>
-                    </NotifyContent>
-                  </FlexItem>
-                  <FlexItem flex={2}></FlexItem>
-                </FlexWrap>
-              </Product>
-            ))}
-          </WrapInput>
-        </WrapSearch>
-      )}
+          <button type="submit">
+            <SearchIcon />
+            <span>Search</span>
+          </button>
+        </div>
+      </form>
+      <span className="categories">
+        Search categories: Oil and gas, Finance, Aviation, Healthcare, Aviation,
+        Construction, Renewables
+      </span>
     </div>
   );
 };

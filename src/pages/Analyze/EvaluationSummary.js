@@ -152,6 +152,8 @@ const EvaluationSummary = () => {
     return format.toLocaleDateString();
   };
 
+  console.log("reveiw deets", review_details);
+
   //2021-02-14T17:07:45.000000Z
   return (
     <Main>
@@ -224,7 +226,9 @@ const EvaluationSummary = () => {
                           <FlexItem
                             flex={4}
                           >{`${data.user.first_name} ${data.user.last_name}`}</FlexItem>
-                          <FlexItem flex={2}>Sales Officer</FlexItem>
+                          <FlexItem flex={2}>
+                            {item.name} {"officer"}
+                          </FlexItem>
                           <FlexItem flex={2}>
                             {data.review !== null ? "completed" : "pending"}
                           </FlexItem>

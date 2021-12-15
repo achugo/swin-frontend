@@ -12,7 +12,7 @@ import { appColors } from "../../../../appTheme/appTheme";
 import Loader from "react-loader-spinner";
 import api from "../../../../api/api";
 import { LoaderWrapper, WrapInput } from "./LoginForm";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch, withRouter } from "react-router-dom";
 
 const FormWrapper = styled.div`
   max-width: 500px;
@@ -102,7 +102,7 @@ const CompleteForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
+  const match = useRouteMatch();
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -127,16 +127,26 @@ const CompleteForm = () => {
   const submitForm = async (e) => {
     setLoading(true);
     e.preventDefault();
-    const payload = JSON.parse(localStorage.getItem("reg_payload"));
-    const status = await api.create("registration", payload);
+    const payload = {
+      first_name: first_name,
+      last_name: last_name,
+      password: password,
+      re_password: confirm_password,
+    };
+    const status = await api.create(
+      `users/complete-account/${match.params.id}`,
+      payload
+    );
     if (status.status) {
       setLoading(false);
       setSuccess(true);
+      setError("");
       // localStorage.setItem("token", status.token);
       // props.history.push("/dashboard");
     } else {
       setLoading(false);
-      setError(status.message);
+      // setError(status.message);
+      setError("Invalid user");
     }
   };
 
@@ -150,21 +160,21 @@ const CompleteForm = () => {
         <Wrapper>
           <WrapInput>
             <InputField
-              placeholder="Last Name"
-              type="tel"
-              required
-              value={last_name}
-              onChange={handleLastNameChange}
-            />
-          </WrapInput>
-
-          <WrapInput>
-            <InputField
               placeholder="First Name"
               type="tel"
               required
               value={first_name}
               onChange={handleFirstNameChange}
+            />
+          </WrapInput>
+
+          <WrapInput>
+            <InputField
+              placeholder="Last Name"
+              type="tel"
+              required
+              value={last_name}
+              onChange={handleLastNameChange}
             />
           </WrapInput>
 
@@ -189,6 +199,12 @@ const CompleteForm = () => {
           </WrapInput>
         </Wrapper>
 
+        {success && (
+          <Span>
+            Registration complete, <Link to="/login">Login</Link> to continue
+          </Span>
+        )}
+
         <NavigationSection>
           <MobileFlex>
             <FlexItem flex={5}>
@@ -201,11 +217,6 @@ const CompleteForm = () => {
         </NavigationSection>
       </form>
 
-      {success && (
-        <Span>
-          Registration complete, <Link to="/login">Login</Link> to continue
-        </Span>
-      )}
       {error && <Error>{error}</Error>}
       {loading && (
         <LoaderWrapper>
@@ -222,4 +233,4 @@ const CompleteForm = () => {
   );
 };
 
-export default CompleteForm;
+export default withRouter(CompleteForm);

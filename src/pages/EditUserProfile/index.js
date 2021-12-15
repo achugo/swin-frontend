@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Main from "../../components/main/Main";
 import MainDashboardContainer from "../../components/StyledComponents/MainDashBoardContainer";
 import { Button, Icon } from "semantic-ui-react";
@@ -48,11 +48,24 @@ const EditUserProfile = () => {
   const [open, setOpen] = useState(false);
 
   const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  const onCloseModal = () => {
+    setOpen(false);
+    setUserData(JSON.parse(localStorage.getItem("payload")));
+  };
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    setUserData(JSON.parse(localStorage.getItem("payload")));
+  }, []);
+
+  // useEffect(() => {
+  //   setUserData(JSON.parse(localStorage.getItem("payload")));
+  // }, [userData]);
+
   return (
     <>
       <Modal open={open} onClose={onCloseModal} center>
-        <EditModal triggerClose={onCloseModal} />
+        <EditModal triggerClose={onCloseModal} u />
       </Modal>
       <Main>
         <section
@@ -62,36 +75,41 @@ const EditUserProfile = () => {
             alignItems: "center",
           }}
         >
-          <Section>
-            <Gutter top={0} bottom={10}>
-              <section style={{ display: "flex", justifyContent: "flex-end" }}>
-                <EditButton onClick={onOpenModal}>
-                  <span>Edit Profile</span>
-                  <Icon name="edit" style={{ marginLeft: "0.5rem" }} />
-                </EditButton>
-              </section>
-            </Gutter>
-            <MainDashboardContainer>
-              <SoftwareEditHeader
-                name={"Emmanuella"}
-                subName={"Swartzeneggar"}
-                fontName={"1.5rem"}
-                fontSubName={"1rem"}
-                title={"Tech Official"}
-                subTitle={"IND solution"}
-              />
-              <ContactSection>
-                <Gutter top={20} bottom={10}>
-                  <EmailIcon />
-                  <span className="text">Email</span>
-                </Gutter>
-                <Gutter top={10} bottom={10}>
-                  <PhoneIcon />
-                  <span className="text">Phone</span>
-                </Gutter>
-              </ContactSection>
-            </MainDashboardContainer>
-          </Section>
+          {userData && (
+            <Section>
+              <Gutter top={0} bottom={10}>
+                <section
+                  style={{ display: "flex", justifyContent: "flex-end" }}
+                >
+                  <EditButton onClick={onOpenModal}>
+                    <span>Edit Profile</span>
+                    <Icon name="edit" style={{ marginLeft: "0.5rem" }} />
+                  </EditButton>
+                </section>
+              </Gutter>
+              <MainDashboardContainer>
+                <SoftwareEditHeader
+                  url={userData.avatar}
+                  name={userData.first_name}
+                  subName={userData.last_name}
+                  fontName={"1.5rem"}
+                  fontSubName={"1rem"}
+                  title={userData.roles[0].name}
+                  subTitle={userData.companies[0].name}
+                />
+                <ContactSection>
+                  <Gutter top={20} bottom={10}>
+                    <EmailIcon />
+                    <span className="text">Email: {userData.email} </span>
+                  </Gutter>
+                  <Gutter top={10} bottom={10}>
+                    <PhoneIcon />
+                    <span className="text">Phone: {userData.phone_number}</span>
+                  </Gutter>
+                </ContactSection>
+              </MainDashboardContainer>
+            </Section>
+          )}
         </section>
       </Main>
     </>
