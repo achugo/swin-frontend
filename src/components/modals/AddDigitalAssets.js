@@ -14,7 +14,7 @@ import {
 import api, { url_base } from "../../api/api";
 import Select from "../dropdown/Select";
 import { TextArea } from "semantic-ui-react";
-import { toast, Toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Wrapper = styled.div`
   background-color: ${appColors.WHITE};

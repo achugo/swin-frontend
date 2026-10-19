@@ -1,4 +1,5 @@
 import axios from "axios";
+import { mockRequest } from "./mock/handlers";
 
 const token = localStorage.getItem("token");
 
@@ -11,9 +12,15 @@ axios.defaults.headers.common = {
 const base_url =
   "https://fierce-shore-33740.herokuapp.com/https://api.swinhub.com/api/";
 
-export const url_base = "https://api.swinhub.com/";
+// Requests are answered in the browser from ./mock/seed.js unless
+// REACT_APP_USE_MOCK=false, so the app runs offline with no API keys.
+export const USE_MOCK = process.env.REACT_APP_USE_MOCK !== "false";
+
+// Mock uploads return complete URLs, so there is nothing to prefix.
+export const url_base = USE_MOCK ? "" : "https://api.swinhub.com/";
 
 const create = (url, newObject) => {
+  if (USE_MOCK) return mockRequest("post", url, newObject);
   return axios
     .post(base_url + url, newObject)
     .then((response) => {
@@ -30,6 +37,7 @@ const create = (url, newObject) => {
 };
 
 const patch = (url, newObject) => {
+  if (USE_MOCK) return mockRequest("patch", url, newObject);
   return axios
     .patch(base_url + url, newObject)
     .then((response) => {
@@ -46,6 +54,7 @@ const patch = (url, newObject) => {
 };
 
 const upload = (url, newObject) => {
+  if (USE_MOCK) return mockRequest("post", url, newObject);
   return axios
     .post("http://api.swinhub.com/api/" + url, newObject)
     .then((response) => {
@@ -62,6 +71,7 @@ const upload = (url, newObject) => {
 };
 
 const get = (url, newObject) => {
+  if (USE_MOCK) return mockRequest("get", url, newObject);
   return axios
     .get(base_url + url, { params: newObject })
     .then((response) => {

@@ -2,6 +2,32 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Run with Docker
+
+```bash
+docker compose up --build
+```
+
+Then open http://localhost:4001/login and sign in with the demo login below.
+The first build takes a few minutes (npm install + production build); stop with `docker compose down`.
+
+## Demo mode (default)
+
+The app runs fully offline against an in-browser mock of the Swinhub API
+(`src/api/mock/`). No API keys or network access are needed.
+
+- **Demo login:** `demo@swinhub.com` / `swinhub-demo`
+- **Seed data:** loaded automatically on first visit from `src/api/mock/seed.js`.
+  Every date is relative to a fixed instant (15 Jan 2026), and new ids and
+  timestamps come from a counter, so the same steps always produce the same screens.
+- **Reset to the seed:** open any page with `?reset-demo` (e.g. `http://localhost:4001/login?reset-demo`).
+  Changes made in the app are otherwise kept in the browser's localStorage.
+
+To use the live API instead, set `REACT_APP_USE_MOCK=false` in `.env.development.local`.
+The contact form then sends through EmailJS (`src/services/email.js`, the only file
+that calls it) and needs `REACT_APP_EMAILJS_SERVICE_ID`, `REACT_APP_EMAILJS_TEMPLATE_ID`,
+`REACT_APP_EMAILJS_USER_ID` and `REACT_APP_CONTACT_EMAIL`.
+
 ## Available Scripts
 
 In the project directory, you can run:

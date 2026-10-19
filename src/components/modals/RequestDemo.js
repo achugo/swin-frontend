@@ -13,7 +13,6 @@ import {
 } from "../../pages/auth/register/form/LoginForm";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import emailjs from "emailjs-com";
 import api from "../../api/api";
 import { propTypes } from "react-bootstrap/esm/Image";
 

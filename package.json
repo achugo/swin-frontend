@@ -10,20 +10,18 @@
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.4",
     "emailjs-com": "^2.6.4",
-    "google-maps-react": "^2.0.6",
+    "font-awesome": "^4.7.0",
     "multiselect-react-dropdown": "^1.6.3",
     "qrcode.react": "^1.0.0",
     "react": "^17.0.1",
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-awesome-slider": "^4.1.0",
     "react-bootstrap": "^1.4.0",
-    "react-chartjs": "^1.2.0",
     "react-chartjs-2": "^2.11.1",
     "react-collapsible": "^2.8.1",
     "react-datepicker": "^3.3.0",
     "react-dom": "^17.0.1",
     "react-dropdown": "^1.9.1",
-    "react-dropdown-select": "^4.7.1",
     "react-loader-spinner": "^3.1.14",
     "react-multi-carousel": "^2.6.1",
     "react-multistep": "^5.1.0",
@@ -31,9 +29,7 @@
     "react-responsive-carousel": "^3.2.11",
     "react-responsive-modal": "^6.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.1",
-    "react-simple-dropdown": "^3.2.3",
-    "react-step-wizard": "^5.3.5",
+    "react-scripts": "5.0.1",
     "react-switch": "^5.0.1",
     "react-tabs": "^3.1.2",
     "react-toastify": "^7.0.2",
@@ -66,5 +62,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0"
   }
 }
