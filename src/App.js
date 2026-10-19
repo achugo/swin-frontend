@@ -1,5 +1,6 @@
 import React from "react";
 import "semantic-ui-css/semantic.min.css";
+import "font-awesome/css/font-awesome.min.css";
 import "./scss/style.css";
 import "./App.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
