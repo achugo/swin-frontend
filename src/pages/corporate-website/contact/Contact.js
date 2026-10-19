@@ -6,7 +6,7 @@ import FlexWrap from "../../../components/flex/FlexWrap";
 import { ReactComponent as Globe } from "../../../img-assets/globe-icon.svg";
 import { ReactComponent as Phone } from "../../../img-assets/phone-icon.svg";
 import { ReactComponent as Mail } from "../../../img-assets/mail-icon.svg";
-import emailjs from "emailjs-com";
+import { sendContactEmail } from "../../../services/email";
 import { ReactComponent as Address } from "../../../img-assets/address-icon.svg";
 
 const Wrapper = styled.div`
@@ -103,25 +103,10 @@ const Contact = () => {
   };
 
   const contact_msg = async (e) => {
-    alert("ho");
     e.preventDefault();
     setLoading("sending message...");
 
-    let templateParams = {
-      from_name: "eachugo@gmail.com",
-      to_name: "eachugo@gmail.com",
-      subject: "NEW CONTACT EMAIL",
-      message: `Contact details ${message}`,
-      // message: overview,
-      // services: `Contact details ${engagement} ${onboarding} ${offline}, ${software} ${awareness} ${traffic}`,
-    };
-    emailjs
-      .send(
-        "service_cn1f2gk",
-        "template_bkn7u4i",
-        templateParams,
-        "user_9TMD4sKyaJKnKsRjLBiqH"
-      )
+    sendContactEmail(message)
       .then((res) => {
         if (res.status === 200) {
           setLoading("Message sent");
